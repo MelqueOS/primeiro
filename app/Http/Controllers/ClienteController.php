@@ -14,10 +14,10 @@ class ClienteController extends Controller
      */
     public function index()
     {
-		return response()->json([
+		/*return response()->json([
 			"acao" => "sucesso"
-		]);
-        //return view("cliente.index");
+		]);*/
+        return view("cliente.index");
     }
 
     /**
