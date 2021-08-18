@@ -199,7 +199,7 @@
 					</div>
 			</div>
 			<footer>
-				By: Meqluesedeque Oliveira da Silva
+				By: Melquesedeque Oliveira da Silva
 			</footer>
 		<section>
 	</body>
