@@ -191,7 +191,7 @@
 						<p>Lista dos clientes abaixo:</p>
 						<ul>
 							<li>Elemento 1, sobre a lista</li>
-							<li>Elemento 2, essa é uma lista estatica</li>
+							<li>Elemento 2, essa é uma lista estatica e devera ser mudada</li>
 							<li>Elemento 3, os elementos dessa lista serão substituidos pelos clientee/li>
 							<li>Elemento 4, os elementos dessa lista servirão para visualização do laiout</li>
 							<li>Elemento 5, os elementos dessa lista não representam dados de reais de um banco de dados</li>
