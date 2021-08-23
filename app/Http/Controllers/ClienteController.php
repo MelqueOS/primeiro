@@ -17,7 +17,18 @@ class ClienteController extends Controller
 		/*return response()->json([
 			"acao" => "sucesso"
 		]);*/
-        return view("cliente.index");
+		/*
+		 O codigo abaixo renderiza a pagina de index e envia os dados de clientes  para ela
+		*/
+		$clientes = Clientes::All();
+		$cliente = new Clientes();
+        return view(
+					"cliente.index", 
+					[
+						"clientes" => $clientes,
+						"cliente" => $cliente
+					]
+		);
     }
 
     /**
@@ -38,7 +49,20 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //o codigo abaixo sera usado para criar novos dados para cliente
+		if($request->get("id")== ""){
+			$cliente = new Clientes();
+		}else{
+			$cliente = Clientes::Find($request->get("id"));
+		}
+			$cliente->nome = $request->get("nome");
+			$cliente->email = $request->get("email");
+			$cliente->cpf = $request->get("cpf");
+			$cliente->telefone = $request->get("telefone");
+			$cliente->data_nascimento = $request->get("data_nascimento");
+			$cliente->save();
+			return redirect("/cliente");
+		
     }
 
     /**
@@ -66,6 +90,15 @@ class ClienteController extends Controller
     public function edit($id)
     {
         //
+		$clientes = Clientes::All();
+		$cliente = Clientes::Find($id);
+		return view(
+			"cliente.index", 
+			[
+				"clientes" => $clientes,
+				"cliente" => $cliente
+			]
+		);
     }
 
     /**
@@ -88,6 +121,7 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+		Clientes::Destroy($id);
+        return redirect("/cliente");//retornar a pagina cliente
     }
 }

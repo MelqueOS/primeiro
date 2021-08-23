@@ -79,14 +79,16 @@
 				width:100%;
 				min-height: 45px;
 				margin-top: 1%;
-				padding-left: 1%;
-				padding-top: 5%;
 				border-top: 1px solid ;
 				border-radius: 5px ;
-				color:white;
+				
 				word-break: break-word;
 			    font-weight: bold;
+				color:white;
 			}
+			table{width: 100%; padding: 0; margin: 0; word-break: break-word;}
+			thead{width: 100%; padding: 0; margin: 0; font-weight: bolder; color:white;}
+			
 			
 			#formulario{
 				background-color: white;
@@ -169,19 +171,21 @@
 		</header>
 		<section>
 			<div id = 'conteiner'>
-					<form id = "formulario">
+					<form id = "formulario" method = "post"  action = '/cliente'>
+						@csrf
 						<div id = "titulo"><p>Cadastre os clientes abaixo:</p></div>
 						<div id = 'campos'>
+							<input type = "hidden" id = "id" name = "id" value = "{{$cliente->id}}"/>
 							<label for = 'campoNome'>Nome: </label>
-							<input type = 'text' name = 'nome' id = 'campoNome'>
+							<input type = 'text' name = 'nome' id = 'campoNome' value = "{{$cliente->nome}}"/>
 							<label for = 'campoCpf'>CPF: </label>
-							<input type = 'text' name = 'cpf' id = 'campoCpf'>
+							<input type = 'text' name = 'cpf' id = 'campoCpf' value = "{{$cliente->cpf}}" />
 							<label for = 'campoEmail'>E-mail: </label>
-							<input type = 'text' name = 'email' id = 'campoEmail'>
+							<input type = 'text' name = 'email' id = 'campoEmail' value = "{{$cliente->email}}" />
 							<label for = 'campoTelefone'>Telefone: </label>
-							<input type = 'text' name = 'telefone' id = 'campoTelefone'>
+							<input type = 'text' name = 'telefone' id = 'campoTelefone' value = "{{$cliente->telefone}}" />
 							<label for = 'campoDataNascimento'>Data de nascimento: </label>
-							<input type = 'date' name = 'dtNasc' id = 'campoDataNascimento'>
+							<input type = 'date' name = 'data_nascimento' id = 'campoDataNascimento' value = "{{$cliente->data_nascimento}}" />
 						</div>
 						<div id = 'botSalvar'>
 							<input type = 'submit' value = 'Salvar' name = 'save'/>
@@ -190,11 +194,29 @@
 					<div id = 'cont-list'>
 						<p>Lista dos clientes abaixo:</p>
 						<ul>
-							<li>Elemento 1, sobre a lista</li>
-							<li>Elemento 2, essa é uma lista estatica e devera ser mudada</li>
-							<li>Elemento 3, os elementos dessa lista serão substituidos pelos clientee/li>
-							<li>Elemento 4, os elementos dessa lista servirão para visualização do laiout</li>
-							<li>Elemento 5, os elementos dessa lista não representam dados de reais de um banco de dados</li>
+						@foreach($clientes as $cliente)
+						
+							<li>
+								<table>
+									<thead>
+										<th colspan="4">{{$cliente->nome}}</th>
+										<th><form action="/cliente/{{$cliente->id}}" method = "POST">
+												@csrf 
+												<input type = "hidden" name="_method" value = "DELETE"/>
+												<input type = "submit" value = "Excluir"/>
+										</form></th>
+										<th><a href= "/cliente/{{$cliente->id}}/edit">Editar</a></th>
+									</thead>
+									<tr>
+										<td>{{$cliente->email}}</td>
+										<td>{{$cliente->cpf}}</td>
+										<td>{{$cliente->telefone}}</td>
+										<td>{{$cliente->data_nascimento}}</td>
+									</tr>
+								</table>
+							</li>
+							
+						@endforeach
 						</ul>
 					</div>
 			</div>
