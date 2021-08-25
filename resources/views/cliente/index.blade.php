@@ -86,10 +86,37 @@
 			    font-weight: bold;
 				color:white;
 			}
-			table{width: 100%; padding: 0; margin: 0; word-break: break-word;}
+			table{width: 100%; padding: 0; margin: 0; word-break: break-word; text-align: center;}
 			thead{width: 100%; padding: 0; margin: 0; font-weight: bolder; color:white;}
+			#tabTitle{
+				background-color: blue;
+				width:100%;
+				
+			}
+			.tabLinha{
+				width: 100%;
+				min-width: 320px;
+			}
+			#cl1DataTabela{
+				width:25%;
+			}
+			#cl2DataTabela{
+				width:50%;
+				padding: 0;
+				margin: 0;
+				background-color: yellow;
+				min-width: 140px;
+				min-height: 45px; 
+			}
 			
-			
+			#cl2DataTabela input{
+				width:100%;
+				background-color: green;
+			}
+			#cl2DataTabela a{
+				width:100%;
+				background-color: green;
+			}
 			#formulario{
 				background-color: white;
 				display: flex;
@@ -197,22 +224,26 @@
 						@foreach($clientes as $cliente)
 						
 							<li>
-								<table>
+								<table border = "colapsed">
 									<thead>
-										<th colspan="4">{{$cliente->nome}}</th>
-										<th><form action="/cliente/{{$cliente->id}}" method = "POST">
-												@csrf 
-												<input type = "hidden" name="_method" value = "DELETE"/>
-												<input type = "submit" value = "Excluir"/>
-										</form></th>
-										<th><a href= "/cliente/{{$cliente->id}}/edit">Editar</a></th>
+										<th colspan = "4"id ='tabTitle'>{{$cliente->nome}}</th>
 									</thead>
-									<tr>
-										<td>{{$cliente->email}}</td>
-										<td>{{$cliente->cpf}}</td>
-										<td>{{$cliente->telefone}}</td>
-										<td>{{$cliente->data_nascimento}}</td>
-									</tr>
+									<tbody>
+										<tr class = "tabLinha">
+											<td id = 'cl1DataTabela'>{{$cliente->email}}</td>
+											<td id = 'cl1DataTabela'>{{$cliente->cpf}}</td>
+											<td id = 'cl1DataTabela'>{{$cliente->telefone}}</td>
+											<td id = 'cl1DataTabela'>{{$cliente->data_nascimento}}</td>
+										</tr>
+										<tr class = "tabLinha" >
+											<td colspan = "2"  id = 'cl2DataTabela'> <form action="/cliente/{{$cliente->id}}" method = "POST">
+													@csrf 
+													<input type = "hidden" name="_method" value = "DELETE"/>
+													<input type = "submit" value = "Excluir"/>
+											</form></td>
+											<td colspan = "2"  id = 'cl2DataTabela'><a href= "/cliente/{{$cliente->id}}/edit">Editar</a></td>
+										</tr>
+									</tbody>
 								</table>
 							</li>
 							
