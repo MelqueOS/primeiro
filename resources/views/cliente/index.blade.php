@@ -51,7 +51,7 @@
 			#cont-list{
 				display: flex;				
 				flex-wrap:wrap;
-				background-color: white;
+				background-color: yellow;
 				width: 49%;
 				min-width: 300px;
 				
@@ -66,56 +66,36 @@
 				font-weight: bold;
 				color: white;
 			}
-			#cont-list ul{
-				background-color: white;
+			#cont-list table{
 				width:100%;
-				list-style: none;
-				padding: 1%;
-				
+				min-width:360px;
+				display: flex;
+				flex-wrap:wrap;
+				background-color:red;
 			}
-			
-			#cont-list ul li{
-				background-color: red;
+			#cont-list table thead{
 				width:100%;
-				min-height: 45px;
-				margin-top: 1%;
-				border-top: 1px solid ;
-				border-radius: 5px ;
-				
-				word-break: break-word;
-			    font-weight: bold;
-				color:white;
+				background-color:blue;
+				display: flex;
+				flex-wrap:wrap;
 			}
-			table{width: 100%; padding: 0; margin: 0; word-break: break-word; text-align: center;}
-			thead{width: 100%; padding: 0; margin: 0; font-weight: bolder; color:white;}
-			#tabTitle{
-				background-color: blue;
-				width:100%;
-				
+			.cont-list-table-tth1{
+				background-color:darkblue;
+				min-width:20px;
+				width:15%;
 			}
-			.tabLinha{
-				width: 100%;
-				min-width: 320px;
-			}
-			#cl1DataTabela{
+			.cont-list-table-tth2{
+				background-color:darkblue;
+				min-width:100px;
 				width:25%;
 			}
-			#cl2DataTabela{
-				width:50%;
-				padding: 0;
-				margin: 0;
-				background-color: yellow;
-				min-width: 140px;
-				min-height: 45px; 
-			}
-			
-			#cl2DataTabela input{
+			#cont-list table tbody{
 				width:100%;
-				background-color: green;
+				background-color:green;
 			}
-			#cl2DataTabela a{
-				width:100%;
-				background-color: green;
+			#cont-list table tbody tr{
+
+				background-color:yellow;
 			}
 			#formulario{
 				background-color: white;
@@ -126,13 +106,13 @@
 				border-right: solid darkblue 1px;
 				
 			}
-			#titulo{
+			.titulo{
 				display: flex;	
 				width: 100%;
 				height: 71px;
 				
 			}
-			#titulo p{
+			.titulo p{
 				background-color: red;
 				width:100%;
 				text-align: center;
@@ -200,7 +180,7 @@
 			<div id = 'conteiner'>
 					<form id = "formulario" method = "post"  action = '/cliente'>
 						@csrf
-						<div id = "titulo"><p>Cadastre os clientes abaixo:</p></div>
+						<div class = "titulo"><p>Cadastre os clientes abaixo:</p></div>
 						<div id = 'campos'>
 							<input type = "hidden" id = "id" name = "id" value = "{{$cliente->id}}"/>
 							<label for = 'campoNome'>Nome: </label>
@@ -219,36 +199,38 @@
 						</div>
 					</form>
 					<div id = 'cont-list'>
-						<p>Lista dos clientes abaixo:</p>
-						<ul>
-						@foreach($clientes as $cliente)
-						
-							<li>
-								<table border = "colapsed">
-									<thead>
-										<th colspan = "4"id ='tabTitle'>{{$cliente->nome}}</th>
-									</thead>
-									<tbody>
-										<tr class = "tabLinha">
-											<td id = 'cl1DataTabela'>{{$cliente->email}}</td>
-											<td id = 'cl1DataTabela'>{{$cliente->cpf}}</td>
-											<td id = 'cl1DataTabela'>{{$cliente->telefone}}</td>
-											<td id = 'cl1DataTabela'>{{$cliente->data_nascimento}}</td>
-										</tr>
-										<tr class = "tabLinha" >
-											<td colspan = "2"  id = 'cl2DataTabela'> <form action="/cliente/{{$cliente->id}}" method = "POST">
-													@csrf 
-													<input type = "hidden" name="_method" value = "DELETE"/>
-													<input type = "submit" value = "Excluir"/>
-											</form></td>
-											<td colspan = "2"  id = 'cl2DataTabela'><a href= "/cliente/{{$cliente->id}}/edit">Editar</a></td>
-										</tr>
-									</tbody>
-								</table>
-							</li>
-							
-						@endforeach
-						</ul>
+						<div class = "titulo"><p>Lista dos clientes abaixo:</p></div>
+						<table border = "colapsed">
+							<thead>
+								<th class = "cont-list-table-tth1">Nome</th>
+								<th class = "cont-list-table-tth1">E-mail</th>
+								<th class = "cont-list-table-tth1">CPF</th>
+								<th class = "cont-list-table-tth1">Telefone</th>
+								<th class = "cont-list-table-tth1">Data de Nascimento</th>
+								<th class = "cont-list-table-tth2">Ações</th>
+							</thead>
+							<tbody>
+							@foreach($clientes as $cliente)
+						      <tr>
+									<td>{{$cliente->nome}}</td>
+									<td>{{$cliente->email}}</td>
+									<td>{{$cliente->cpf}}</td>
+									<td>{{$cliente->telefone}}</td>
+									<td>{{$cliente->data_nascimento}}</td>
+					    			<td> 
+										<form action="/cliente/{{$cliente->id}}" method = "POST">
+											@csrf 
+											<input type = "hidden" name="_method" value = "DELETE"/>
+											<input type = "submit" value = "Excluir"/>
+										</form>
+									</td>
+									<td>
+										<a href= "/cliente/{{$cliente->id}}/edit">Editar</a>
+									</td>
+								</tr>
+							@endforeach
+							</tbody>
+						</table>
 					</div>
 			</div>
 			<footer>
