@@ -49,60 +49,46 @@
 				background-color: white;
 			}
 			#cont-list{
-				display: flex;				
-				flex-wrap:wrap;
-				background-color: yellow;
-				width: 49%;
-				min-width: 300px;
-				
+				background-color: white;
+				width: 60%;
+				min-width: 360px;
 				border-left: solid darkblue 1px;
-			}
-			#cont-list p{
-				background-color: red;
-				width:100%;
-				text-align: center;
-				padding-top: 2%;
-				padding-bottom: 2%;
-				font-weight: bold;
-				color: white;
 			}
 			#cont-list table{
 				width:100%;
-				min-width:360px;
-				display: flex;
-				flex-wrap:wrap;
-				background-color:red;
-			}
-			#cont-list table thead{
-				width:100%;
-				background-color:blue;
-				display: flex;
-				flex-wrap:wrap;
+				min-width:357px;
+				background-color:white;
+				color: white;
 			}
 			.cont-list-table-tth1{
-				background-color:darkblue;
-				min-width:20px;
-				width:15%;
+				background-color:red;
+				min-width:50px;
+				width:14%;
 			}
 			.cont-list-table-tth2{
-				background-color:darkblue;
+				background-color:darkred;
 				min-width:100px;
-				width:25%;
+				width:24%;
 			}
-			#cont-list table tbody{
-				width:100%;
-				background-color:green;
+			.cont-list-table-tbtr1{
+				background-color:#F8F8FF;
+				color: red;
+				width: 100%;
 			}
-			#cont-list table tbody tr{
-
-				background-color:yellow;
+			.cont-list-table-tbtr2{
+				background-color:white;
+				color: red;
+				width: 100%;
+			}
+			.cont-list-table-tbtd{
+				width:10%;
 			}
 			#formulario{
 				background-color: white;
 				display: flex;
 				flex-wrap:wrap;
 				min-width: 300px;
-				width: 49%;
+				width: 39%;
 				border-right: solid darkblue 1px;
 				
 			}
@@ -200,33 +186,35 @@
 					</form>
 					<div id = 'cont-list'>
 						<div class = "titulo"><p>Lista dos clientes abaixo:</p></div>
-						<table border = "colapsed">
+						<table>
 							<thead>
 								<th class = "cont-list-table-tth1">Nome</th>
 								<th class = "cont-list-table-tth1">E-mail</th>
 								<th class = "cont-list-table-tth1">CPF</th>
 								<th class = "cont-list-table-tth1">Telefone</th>
 								<th class = "cont-list-table-tth1">Data de Nascimento</th>
-								<th class = "cont-list-table-tth2">Ações</th>
+								<th class = "cont-list-table-tth2" colspan = '2'>Ações</th>
 							</thead>
 							<tbody>
+							<?php $linha = 1;?>
 							@foreach($clientes as $cliente)
-						      <tr>
-									<td>{{$cliente->nome}}</td>
-									<td>{{$cliente->email}}</td>
-									<td>{{$cliente->cpf}}</td>
-									<td>{{$cliente->telefone}}</td>
-									<td>{{$cliente->data_nascimento}}</td>
-					    			<td> 
+						      <tr class = <?php echo "'cont-list-table-tbtr".$linha."'";?>>
+									<td class = 'cont-list-table-tbtd'>{{$cliente->nome}}</td>
+									<td class = 'cont-list-table-tbtd'>{{$cliente->email}}</td>
+									<td class = 'cont-list-table-tbtd'>{{$cliente->cpf}}</td>
+									<td class = 'cont-list-table-tbtd'>{{$cliente->telefone}}</td>
+									<td class = 'cont-list-table-tbtd'>{{$cliente->data_nascimento}}</td>
+					    			<td class = 'cont-list-table-tbtd'> 
 										<form action="/cliente/{{$cliente->id}}" method = "POST">
 											@csrf 
 											<input type = "hidden" name="_method" value = "DELETE"/>
 											<input type = "submit" value = "Excluir"/>
 										</form>
 									</td>
-									<td>
+									<td class = 'cont-list-table-tbtd'>
 										<a href= "/cliente/{{$cliente->id}}/edit">Editar</a>
 									</td>
+									<?php $linha = $linha == 2?1:2;?>
 								</tr>
 							@endforeach
 							</tbody>
