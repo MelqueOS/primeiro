@@ -151,7 +151,31 @@
 				color: white;
 				font-weight: bold;
 			}
-			
+			#bot{
+				background-color: red;
+				width: 100%;
+				sborder-radius: 2px;
+				text-align: center;
+				font-weight: bold;
+				font-family: Arial;
+				border-color: red;
+				color: white;
+		
+			}
+			#bot2{
+				background-color: gray;
+				width: 100%;
+				display:block;
+				line-height: 10px;
+				padding: 6px 1px;
+				margin-bottom: 15px;
+				color: white;
+				text-decoration:none;
+				border-radius: 2px;
+				text-align: center;
+				font-weight: bold;
+				font-family: Arial;
+			}
 		</style>
 	</head>
 	<body>
@@ -208,11 +232,11 @@
 										<form action="/cliente/{{$cliente->id}}" method = "POST">
 											@csrf 
 											<input type = "hidden" name="_method" value = "DELETE"/>
-											<input type = "submit" value = "Excluir"/>
+											<input id = 'bot' type = "submit" value = "Excluir"/>
 										</form>
 									</td>
 									<td class = 'cont-list-table-tbtd'>
-										<a href= "/cliente/{{$cliente->id}}/edit">Editar</a>
+										<a id = 'bot2' href= "/cliente/{{$cliente->id}}/edit">Editar</a>
 									</td>
 									<?php $linha = $linha == 2?1:2;?>
 								</tr>
